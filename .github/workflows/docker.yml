@@ -28,8 +28,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          docker pull k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
-          docker tag  k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2 lubinlew/nfs-subdir-external-provisioner:v4.0.2
+          docker pull k8s.gcr.io/conformance-amd64:v1.23.12
+          docker tag  k8s.gcr.io/conformance-amd64:v1.23.12 lubinlew/conformance:v1.23.12
       
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -40,5 +40,5 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Push to Docker Registry
         run: |
-          docker push lubinlew/nfs-subdir-external-provisioner:v4.0.2
+          docker push lubinlew/conformance:v1.23.12
 
