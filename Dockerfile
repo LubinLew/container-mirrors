@@ -1,7 +1,7 @@
-FROM debian:latest
+FROM alpine:latest
 
-RUN apt-get update  -y
-RUN apt-get install -y perl cpanminus
+
+RUN apk add make perl perl-app-cpanminus perl-app-cpanminus-https
 
 RUN cpanm -n -f -q Text::CSV
 RUN cpanm -n -f -q MaxMind::DB::Writer
