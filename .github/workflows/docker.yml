@@ -28,7 +28,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          docker build lubinlew/geolite2rebuild:latest
+          docker build -t lubinlew/geolite2rebuild:latest .
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
