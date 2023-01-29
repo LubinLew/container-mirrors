@@ -1,7 +1,8 @@
-FROM centos:7
+FROM debian:latest
 
-RUN yum install -y perl cpanminus
+RUN apt-get update  -y
+RUN apt-get install -y perl cpanminus
 
 RUN cpanm -n -f -q Text::CSV
-RUN cpanm -n -f -q MaxMind::DB::Writer 
+RUN cpanm -n -f -q MaxMind::DB::Writer
 
