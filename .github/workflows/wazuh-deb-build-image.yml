@@ -26,6 +26,8 @@ jobs:
           git config --global advice.detachedHead false
           git clone -b v4.3.10 --depth 1 https://github.com/wazuh/wazuh-packages.git
           cd wazuh-packages/debs
+          sed -i 's#apt-utils# --force-yes apt-utils#'  Debian/amd64/Dockerfile
+          sed -i 's#python3.2# python3.2 --force-yes #' Debian/amd64/Dockerfile
           ./generate_debian_package.sh -b v4.3.10 -t agent -a x86_64 -r 1  --packages-branch v4.3.10
           docker tag deb_builder_amd64:latest lubinlew/wazuh_deb_builder_amd64:4.3
 
