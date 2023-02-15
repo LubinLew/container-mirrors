@@ -23,7 +23,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: wazuh rpm build docker
         run: |
-          git clone -b v4.3.10 --depth 1 --depth https://github.com/wazuh/wazuh-packages.git
+          git clone -b v4.3.10 --depth 1 https://github.com/wazuh/wazuh-packages.git
           cd wazuh-packages/rpm
           ./generate_rpm_package.sh -b v4.3.10 -t agent -a x86_64 -r 1  --packages-branch v4.3.10
           docker tag rpm_builder_x86:latest lubinlew/rpm_builder_x86:4.3
