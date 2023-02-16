@@ -1,0 +1,8 @@
+FROM lubinlew/rpm_builder_x86:4.3
+
+# Add the scripts to build the RPM package
+ADD build.sh /usr/local/bin/build_package
+RUN chmod +x /usr/local/bin/build_package
+
+# Set the entrypoint
+ENTRYPOINT ["/usr/local/bin/build_package"]
