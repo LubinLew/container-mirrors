@@ -28,6 +28,8 @@ jobs:
           rm -rf .git .github
           git config --global advice.detachedHead false
           git clone -b v4.3.10 --depth 1 https://github.com/wazuh/wazuh-packages.git
+          rm -f  wazuh-packages/wazuhapp/kibana/Docker/Dockerfile
+          cp Dockerfile.wauzh_kibana_app wazuh-packages/wazuhapp/kibana/Docker/Dockerfile
           cd wazuh-packages/wazuhapp/kibana
           ./generate_wazuh_app.sh -b v4.3.10-7.17.4
           docker tag wazuh-kibana-app-builder:latest lubinlew/wazuh-kibana-app-builder:4.3
