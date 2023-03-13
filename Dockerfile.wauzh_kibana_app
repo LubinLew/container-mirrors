@@ -1,0 +1,35 @@
+FROM centos:8
+
+RUN sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
+RUN sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
+
+# Install nodejs
+RUN mkdir -p /opt/
+RUN curl -kso node-v16.14.2-linux-x64.tar.xz https://nodejs.org/dist/v16.14.2/node-v16.14.2-linux-x64.tar.xz
+RUN tar xf node-v16.14.2-linux-x64.tar.xz -C /opt/
+RUN rm -f node-v16.14.2-linux-x64.tar.xz
+ENV PATH "$PATH:/opt/node-v16.14.2-linux-x64/bin"
+
+# Install dependencies
+RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-centostesting
+RUN yum install git gcc gcc-c++ make sudo zip python3 -y
+RUN alternatives --set python /usr/bin/python3
+RUN npm install -g n
+
+# download Kibana
+RUN mkdir -p /tmp/source/plugins/wazuh
+RUN git clone --branch v7.17.4 --depth=1 https://github.com/elastic/kibana.git kibana_source
+RUN mkdir -p kibana_source/plugins
+RUN mv kibana_source /tmp/source
+RUN cd /tmp/source/ && npm install -g 'yarn@^1.21.1'
+RUN cd /tmp/source/ && yarn kbn bootstrap --skip-kibana-plugins --oss --allow-root
+
+
+ADD build.sh /
+RUN chmod +x /build.sh
+
+# Add the volumes
+RUN mkdir /wazuh_app /source
+
+# Set the entrypoint/
+ENTRYPOINT ["/build.sh"]
