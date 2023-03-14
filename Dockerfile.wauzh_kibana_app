@@ -14,13 +14,15 @@ ENV PATH "$PATH:/opt/node-v16.14.2-linux-x64/bin"
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-centostesting
 RUN yum install git gcc gcc-c++ make sudo zip python3 -y
 RUN alternatives --set python /usr/bin/python3
-RUN npm install -g browserslist@latest
-RUN npx browserslist@latest --update-db
+RUN npm install -g npm@9.6.1
+
 
 # download Kibana
 RUN git clone --branch v7.17.4 --depth=1 https://github.com/elastic/kibana.git kibana_source
 RUN mv kibana_source /tmp/source
 RUN mkdir -p /tmp/source/plugins/wazuh
+RUN cd /tmp/source/ && npm install -g browserslist@latest
+RUN cd /tmp/source/ && npx browserslist@latest --update-db
 RUN cd /tmp/source/ && npm install -g 'yarn@^1.21.1'
 RUN cd /tmp/source/ && yarn kbn bootstrap --skip-kibana-plugins --oss --allow-root
 
