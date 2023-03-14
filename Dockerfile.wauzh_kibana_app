@@ -21,9 +21,9 @@ RUN npm install -g npm@9.6.1
 RUN git clone --branch v7.17.4 --depth=1 https://github.com/elastic/kibana.git kibana_source
 RUN mv kibana_source /tmp/source
 RUN mkdir -p /tmp/source/plugins/wazuh
+RUN cd /tmp/source/ && npm install -g 'yarn@^1.21.1'
 RUN cd /tmp/source/ && npm install -g browserslist@latest
 RUN cd /tmp/source/ && npx browserslist@latest --update-db
-RUN cd /tmp/source/ && npm install -g 'yarn@^1.21.1'
 RUN cd /tmp/source/ && yarn kbn bootstrap --skip-kibana-plugins --oss --allow-root
 
 
