@@ -15,7 +15,7 @@ RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-centostesting
 RUN yum install git gcc gcc-c++ make sudo zip python3 -y
 RUN alternatives --set python /usr/bin/python3
 RUN npm install -g npm@9.6.1
-
+RUN npm install -g n
 
 # download Kibana
 RUN git clone --branch v7.17.4 --depth=1 https://github.com/elastic/kibana.git kibana_source
